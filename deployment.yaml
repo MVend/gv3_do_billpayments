@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: billpaydemo
+  name: billpaydemo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: billpaydemo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: billpaydemo
+    spec:
+      containers:
+        - image: brugambwa/mvend-dev-ops:1
+          name: billpaydemo
+          resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lb-service
+  labels:
+    app: lb-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 7773
+  selector:
+    app: billpaydemo
