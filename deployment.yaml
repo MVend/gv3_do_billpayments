@@ -24,6 +24,8 @@ spec:
           name: billpay-service
           ports:
           - containerPort: 7773
+          imagePullSecrets:
+          - name: docker-registry
           env:
           - name: DEV_DB_USER
             valueFrom:
