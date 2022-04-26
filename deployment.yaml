@@ -19,14 +19,14 @@ spec:
         app: billpay-service
         version: staging
     spec:
+      imagePullSecrets:
+      - name: docker-registry
       containers:
-        - image: brugambwa/gv3_ms_billpayment:1
-          name: billpay-service
-          ports:
-          - containerPort: 7773
-          imagePullSecrets:
-          - name: docker-registry
-          env:
+      - image: brugambwa/gv3_ms_billpayment:1
+        name: billpay-service
+        ports:
+        - containerPort: 7773
+        env:
           - name: DEV_DB_USER
             valueFrom:
               secretKeyRef:
@@ -41,7 +41,7 @@ spec:
             valueFrom: 
               configMapKeyRef:
                 name: gwiza-staging-config
-                key: DEV_DB_HOST
+                key: DEV_DB_HOST  
 
 
 # Service Definition
