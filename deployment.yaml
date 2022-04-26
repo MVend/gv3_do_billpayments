@@ -1,38 +1,56 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Deployment
+apiVersion: apps/v1
 metadata:
-  creationTimestamp: null
   labels:
-    app: billpaydemo
-  name: billpaydemo
+    app: billpay-deployment
+    version: staging
+  name: billpay-deployment
+  namespace: gwiza-staging
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: billpaydemo
-  strategy: {}
+      app: billpay-service
+      version: staging
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: billpaydemo
+        app: billpay-service
+        version: staging
     spec:
       containers:
-        - image: brugambwa/mvend-dev-ops:1
-          name: billpaydemo
+        - image: brugambwa/gv3_ms_billpayment:1
+          name: billpay-service
+          ports:
+            - containerPort: 7773
           resources: {}
-status: {}
+        imagePullSecrets:
+        - name: registry-secret
+          envFrom:
+              - configMapRef:
+                  name: gwiza-staging-config 
+              - secretRef:
+                  name: gwiza-staging-secret
+
+# Service Definition
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: lb-service
   labels:
-    app: lb-service
+    run: billpay-service
+  name: billpay-service
+  namespace: gwiza-staging
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 80
+      name: http
       targetPort: 7773
+      protocol: TCP
   selector:
-    app: billpaydemo
+    app: billpay-service
+  type: ClusterIP
+
+# Ingress Definition
