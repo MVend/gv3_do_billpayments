@@ -20,7 +20,7 @@ spec:
         version: staging
     spec:
       imagePullSecrets:
-      - name: docker-registry
+      - name: docker-keys
       containers:
       - image: brugambwa/gv3_ms_billpayment:1
         name: billpay-service
