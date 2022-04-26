@@ -24,13 +24,23 @@ spec:
           name: billpay-service
           ports:
           - containerPort: 7773
-        imagePullSecrets:
-        - name: registry-secret
-          envFrom:
-              - configMapRef:
-                  name: gwiza-staging-config 
-              - secretRef:
-                  name: gwiza-staging-secret
+          env:
+          - name: DEV_DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: gwiza-staging-secret
+                key: DEV_DB_USER
+          - name: DEV_DB_PASS
+            valueFrom: 
+              secretKeyRef:
+                name: gwiza-staging-secret
+                key: DEV_DB_PASS
+          - name: DEV_DB_HOST
+            valueFrom: 
+              configMapKeyRef:
+                name: gwiza-staging-config
+                key: DEV_DB_HOST
+
 
 # Service Definition
 ---
