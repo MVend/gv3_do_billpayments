@@ -23,7 +23,7 @@ spec:
         - image: brugambwa/gv3_ms_billpayment:1
           name: billpay-service
           ports:
-            - containerPort: 7773
+          - containerPort: 7773
         imagePullSecrets:
         - name: registry-secret
           envFrom:
