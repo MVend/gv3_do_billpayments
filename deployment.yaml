@@ -24,7 +24,6 @@ spec:
           name: billpay-service
           ports:
             - containerPort: 7773
-          resources: {}
         imagePullSecrets:
         - name: registry-secret
           envFrom:
