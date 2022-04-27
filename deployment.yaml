@@ -27,6 +27,16 @@ spec:
         ports:
         - containerPort: 7773
         env:
+          - name: APP_ENV
+            valueFrom: 
+              configMapKeyRef:
+                name: gwiza-staging-config
+                key: APP_ENV  
+          - name: DEV_DB_HOST
+            valueFrom: 
+              configMapKeyRef:
+                name: gwiza-staging-config
+                key: DEV_DB_HOST
           - name: DEV_DB_USER
             valueFrom:
               secretKeyRef:
