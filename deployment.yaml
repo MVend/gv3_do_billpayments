@@ -22,7 +22,7 @@ spec:
       imagePullSecrets:
       - name: docker-keys
       containers:
-      - image: brugambwa/gv3_ms_billpayment:1
+      - image: brugambwa/gv3_ms_billpayments:1
         name: billpay-service
         ports:
         - containerPort: 7773
